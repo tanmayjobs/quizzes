@@ -1,0 +1,14 @@
+<div class="d-flex flex-column" *ngIf="quizzes.length">
+    <div class="d-flex flex-row">
+        <input class="form-control m-4" type="text" placeholder="Enter Quiz Name..." [(ngModel)]="filterBy">
+        <span *ngIf="userRole == 'CREATOR'" class="tags m-4" style="text-align: center;cursor: pointer;" routerLink="new"><h1>+</h1></span>
+    </div>
+    <div class="d-flex flex-wrap">
+        <div *ngFor="let quiz of quizzes;">
+            <quiz-tile *ngIf="quiz.quiz_name" [quiz]="quiz"></quiz-tile>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center" *ngIf="!quizzes.length">
+    <loader></loader>
+</div>

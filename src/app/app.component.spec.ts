@@ -22,10 +22,17 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('quizzes');
   });
 
-  it('should render title', () => {
+  it(`should have as title changed after init`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    fixture.detectChanges();
+    expect(app.title).toEqual('ngOnInit');
+  });
+
+  it('should render navbar', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, quizzes');
+    expect(compiled.getElementsByClassName("navbar").length).toEqual(1);
   });
 });

@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-center align-items-center">
+    <div class="p-4" style="width: 400px;">
+        <form #authForm="ngForm" class="p-4" (ngSubmit)="authData[currentMode].method()">
+            <input
+                type="email"
+                class="form-control my-1"
+                placeholder="Enter username"
+                name="username"
+                ngModel
+                required
+                pattern="^[a-zA-Z][A-Za-z0-9]{0,15}">
+
+            <input
+                type="password"
+                class="form-control my-1"
+                placeholder="Password"
+                name="password"
+                ngModel
+                required
+                [pattern]="authData[currentMode].passwordPattern"
+                [ngClass]="{'is-invalid': authForm.controls['password']?.errors?.pattern}">
+            <div *ngIf="authForm.controls['password']?.errors?.pattern" class="text-danger">Weak Password</div>
+            <a [routerLink]="authData[currentMode].link"><small id="emailHelp" class="form-text text-muted m-2" style="float: right;">{{authData[currentMode].message}}</small></a>
+            <br><br>
+            <loader *ngIf="inProgress"></loader>
+            <button type="submit" class="btn btn-primary my-1" style="float: right;" [disabled]="!authForm.valid || inProgress">
+                {{authData[currentMode].buttonText}}
+            </button>
+        </form>
+    </div>
+</div>

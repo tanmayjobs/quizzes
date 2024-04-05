@@ -1,0 +1,14 @@
+.opft{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.searchmore{
+    width: 180px;
+    height: 180px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 4px 4px 4px rgba(0,0,0,0.25);
+    margin: 10px;
+    color: cornflowerblue;
+}

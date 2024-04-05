@@ -1,0 +1,23 @@
+<div class="d-flex flex-column" *ngIf="quiz && allTags" class="p-4" style="background-color: #60C6FF; min-height: 100vh; height: 100%;">
+    <div class="opft p-4 custom-rounded" style="min-height: 100vh; height: 100%;">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 style="font-weight: bold;">
+                    <input type="text" [value]="quiz.quiz_name">
+                </h1>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap align-items-center">
+            <span class="tags m-2" *ngFor="let tag of modifiedTags">
+                {{ tag.tag_name.toUpperCase() }}
+            </span>
+            <select class="tags" style="border: none;" (change)="addTag($event.target.value)">
+                <option value="" disabled selected>Select Tag</option>
+                <option *ngFor="let tag of allTags; let i = index" [value]="i">{{ tag.tag_name }}</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center align-items-center" *ngIf="!quiz" style="width:100vw;height:100vh;">
+    <loader></loader>
+</div>

@@ -1,0 +1,15 @@
+<div class="container d-flex flex-column justify-content-between">
+    <div class="d-flex justify-content-between align-items-center" [routerLink]="['/quizzes', quiz.quiz_id]" style="cursor: pointer;">
+        <div class="d-flex flex-column flex-grow-1" style="padding-bottom: 10px;">
+            <span>{{quiz.quiz_name}}</span>
+            <sub style="color: grey;">By {{quiz.creator_name}}</sub>
+        </div>
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </div>
+    <div
+    class="d-flex p-4 justify-content-center" style="background-color: white;border-radius: 20px;cursor: pointer;"
+    (click)="click()"
+    *ngIf="showDelete && (userRole == 'ADMIN' || userRole == 'CREATOR')">
+        <i class="fa fa-trash" aria-hidden="true" style="color: tomato;font-size: 25px;"></i>
+    </div>
+</div>

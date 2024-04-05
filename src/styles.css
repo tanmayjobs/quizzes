@@ -1,1 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+*{
+    box-sizing: border-box;
+}
+html, body, app-root{
+    margin: 0px;
+    padding: 0px;
+}
+.opft{
+    background-color: rgba(255, 255, 255, 0.42);
+}
+.custom-rounded{
+    border-radius: 30px;
+}
+.tags{
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin: 5px;
+    background-color: black;
+    color: white;
+    box-shadow: 3px 3px 4px black;
+}

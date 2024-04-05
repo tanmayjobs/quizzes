@@ -1,0 +1,32 @@
+<div class="d-flex p-4" style="background-color: #60C6FF;color: white; border-bottom-right-radius: 150px;">
+    <div class="col m-1 opft custom-rounded">
+        <h2>Best of this Week</h2>
+        <div class="d-flex flex-column justify-content-between">
+            <div *ngIf="topRecords.length">
+                <play-record *ngFor="let record of topRecords;index as itemNumber" [record]="record" [itemNumber]="itemNumber+1"></play-record>
+            </div>
+            <div class="d-flex flex-column justify-content-center align-items-center" *ngIf="!topRecords.length">
+                <loader></loader>
+            </div>
+        </div>
+    </div>
+    <div class="col m-1 opft custom-rounded d-flex justify-content-center align-items-center" style="border-bottom-right-radius: 150px;font-size: 27px;">
+        <p>
+            What Question Can You<br>
+            Never Answer Yes To?<br>
+            Are You Asleep?<br>
+        </p>
+    </div>
+</div>
+<div class="col m-1 p-4 d-flex flex-column">
+    <h1>A Good Riddle Reveals The Asker. To Solve It Is To Solve The Mystery Of The Person Posing It.</h1>
+    <div *ngIf="topRecords.length" style="display:flex; flex-wrap:wrap;">
+        <quiz-tile *ngFor="let quiz of topQuizzes;" [quiz]="quiz"></quiz-tile>
+        <a routerLink="quizzes" style="text-decoration: none;">
+        <div class="searchmore d-flex justify-content-center align-items-center">Search More</div>
+        </a>
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center" *ngIf="!topQuizzes.length">
+        <loader></loader>
+    </div>
+</div>

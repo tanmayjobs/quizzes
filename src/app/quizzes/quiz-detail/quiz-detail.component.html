@@ -1,0 +1,40 @@
+<div class="d-flex flex-column" *ngIf="quiz" class="p-4" style="background-color: #60C6FF; min-height: 100vh; height: 100%;">
+    <div class="opft p-4 custom-rounded" style="min-height: 100vh; height: 100%;">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 style="font-weight: bold;">
+                    {{quiz.quiz_name}}
+                </h1>
+                <h5 style="color: grey;">By {{quiz.creator_name}}</h5>
+            </div>
+            <div class="d-flex">
+                <h1 class="mx-2" *ngIf="userRole == 'PLAYER'" routerLink="play" style="cursor: pointer;">
+                    <i class="fa fa-play"></i>
+                </h1>
+                <h1 class="mx-2" *ngIf="userRole == 'CREATOR' && quiz.creator_id == userId" [routerLink]="['edit']" style="cursor: pointer;" disabled>
+                    <i class="fa fa-pencil"></i>
+                </h1>
+                <h1 class="mx-2" *ngIf="(userRole == 'CREATOR' && quiz.creator_id == userId) || userRole == 'ADMIN'" style="cursor: pointer;" disabled>
+                    <i class="fa fa-trash"></i>
+                </h1>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap">
+            <span class="tags" *ngFor="let tag of quiz.tags">
+                {{tag.tag_name.toUpperCase()}}
+            </span>
+        </div>
+        <div class="my-4" style="font-size: 27px; color: white;">
+            All It Takes Is Fear, And A Little Focused Violence. One of the best quiz about the darkest city, Gotham.
+        </div>
+        <div class="my-4 opft custom-rounded p-4">
+            <h2 style="color: white;">Top Records</h2>
+            <div>
+                <play-record *ngFor="let record of records; let recordNum = index" [record]="record" [itemNumber]="recordNum"></play-record>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center align-items-center" *ngIf="!quiz" style="width:100vw;height:100vh;">
+    <loader></loader>
+</div>
