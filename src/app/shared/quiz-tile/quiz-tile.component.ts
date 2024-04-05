@@ -3,6 +3,8 @@ import { QuizModel } from '../../quizzes/quiz.model';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth/auth.service';
+import { QuizzesService } from '../../quizzes/quizzes.service';
+import { MessageService } from '../message/message.service';
 
 @Component({
   selector: 'quiz-tile',
@@ -16,7 +18,7 @@ export class QuizTileComponent {
   userRole: string;
   showDelete: boolean;
 
-  constructor(private authService: AuthService, private router:Router){}
+  constructor(private authService: AuthService, private router:Router, private quizzesService: QuizzesService, private messageService: MessageService){}
 
   ngOnInit(){
     this.showDelete = this.router.url.includes("quizzes");
@@ -27,7 +29,14 @@ export class QuizTileComponent {
 
   click(){
     if (confirm("Are you sure you want to remove the Quiz?")){
-
+      this.quizzesService.deleteQuiz(this.quiz.quiz_id).subscribe(
+        response => {
+          this.messageService.showMessage("success", "Quiz Removed Successfully!");
+        },
+        error => {
+          this.messageService.showMessage("error", error.error.message);
+        }
+      )
     }
   }
 }

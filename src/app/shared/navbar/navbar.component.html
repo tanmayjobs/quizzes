@@ -5,9 +5,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-        <!-- <li class="nav-item">
-          <a class="nav-link">{{userRole}}</a>
-        </li> -->
         <li class="nav-item" *ngIf="userRole == 'ADMIN'">
           <a class="nav-link" routerLink="users" routerLinkActive="active">Users</a>
         </li>
