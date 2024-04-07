@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Constants } from '../shared/constants';
-import { BehaviorSubject, Subject, catchError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, tap } from 'rxjs';
 import { UserTokens } from './user.model';
-import { USEROLES, handleError } from '../shared/app.helpers';
+import { USERROLES, handleError } from '../shared/app.helpers';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -25,7 +25,10 @@ export class AuthService {
       username: username,
       password: password
     })
-    .pipe(catchError(handleError));
+    .pipe(
+      catchError(handleError),
+      tap((response: UserTokens) => {this.user.next(response)})
+    );
   }
 
   signup(username: string, password: string){
@@ -56,6 +59,17 @@ export class AuthService {
   }
 
   getUserRole(){
-    return USEROLES[this.currentUserRole.value.role ?? -1];
+    return USERROLES[this.currentUserRole.value.role ?? -1];
+  }
+
+  refreshToken(){
+    return this.httpClient.post(`${Constants.BASEURL}/auth/refresh`, {}, {
+      headers: new HttpHeaders({
+        authorization: `Bearer ${this.user.value.refresh_token}`
+      })
+    }).pipe(
+      catchError(handleError),
+      tap((response: UserTokens) => {this.user.next(response)})
+    )
   }
 }

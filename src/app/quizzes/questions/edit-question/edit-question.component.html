@@ -1,1 +1,27 @@
-<p>edit-question works!</p>
+<div *ngIf="visible">
+    <form #questionForm="ngForm">
+        <div class="d-flex">
+            <textarea
+            class="m-2"
+            name="questionText"
+            style="width: 100%; resize: none;"
+            rows="4"
+            placeholder="Enter your question here..."
+            [ngModel]="question.question_text"
+            required>
+            </textarea>
+            <div
+            class="opft p-4 m-2 custom-rounded d-flex align-items-center"
+            [ngStyle]="{'cursor': questionForm.valid ? 'pointer': null}"
+            (click)="putQuestion()">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column">
+            <app-option-item *ngFor="let option of question.options; let optionIndex = index" [option]="option">
+            </app-option-item>
+            <app-option-item *ngIf="question.question_id"></app-option-item>
+        </div>
+    </form>
+</div>

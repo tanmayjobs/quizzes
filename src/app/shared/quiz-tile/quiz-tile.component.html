@@ -8,7 +8,7 @@
     </div>
     <div
     class="d-flex p-4 justify-content-center" style="background-color: white;border-radius: 20px;cursor: pointer;"
-    (click)="click()"
+    (click)="removeQuiz()"
     *ngIf="showDelete && (userRole == 'ADMIN' || userRole == 'CREATOR')">
         <i class="fa fa-trash" aria-hidden="true" style="color: tomato;font-size: 25px;"></i>
     </div>

@@ -21,4 +21,7 @@ export class MessageComponent {
       }
     )
   }
+  confirmDecision(isConfirmed: boolean){
+    this.messageService.confirmDecision(isConfirmed);
+  }
 }

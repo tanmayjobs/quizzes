@@ -1,52 +1,75 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
 import { MessageService } from '../../shared/message/message.service';
-import { PlayRecordModel } from '../../shared/records.models';
-import { RecordsService } from '../../shared/records.service';
 import { QuizModel } from '../quiz.model';
+import { QuizPlayService } from '../quiz-play.service';
+import { Question } from '../questions/questions.model';
 import { QuizzesService } from '../quizzes.service';
-import { QuestionsService } from '../questions/questions.service';
 
 @Component({
   selector: 'app-quiz-play',
   templateUrl: './quiz-play.component.html',
-  styleUrl: './quiz-play.component.css'
+  styleUrl: './quiz-play.component.css',
 })
 export class QuizPlayComponent {
-  @Input() quiz: QuizModel;
-  records: PlayRecordModel[];
-  userRole: Boolean;
-  userId: string;
+  quiz: QuizModel;
+  questions: Question[];
 
   constructor(
     private quizzesService: QuizzesService,
-    private authService: AuthService,
+    private quizPlayService: QuizPlayService,
     private route: ActivatedRoute,
-    private messageService: MessageService,
-    private questionsService: QuestionsService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private messageService: MessageService
+  ) {}
   ngOnInit() {
-    this.authService.currentUserRole.subscribe(
-      (user) => {
-        this.userRole = this.authService.getUserRole();
-        this.userId = user.user_id;
-      }
-    );
-
     this.route.params.subscribe((params: Params) => {
-      this.quizzesService.getQuiz(params['quizId'])
-      .subscribe(
-        (quiz: QuizModel) => (this.quiz = quiz),
-        (error) => {
-          this.messageService.showMessage('error', error.error.message);
-          this.router.navigate(['/quizzes'])
-        }
-      );
-      this.questionsService.getQuestions(params['quizId']).subscribe(
-
-      )
+      this.quizPlayService.load(params['quizId']);
     });
+
+    this.quizPlayService.questions.subscribe(
+      (questions) => {
+        if (questions && questions.length == 0) {
+          this.messageService.showMessage(
+            'error',
+            'Creator is still working on the quiz and is not yet playable!'
+          );
+          this.router.navigate(['/quizzes']);
+        }
+        this.questions = questions;
+      },
+      (error) => this.messageService.showMessage('error', error)
+    );
+    this.quizPlayService.quiz.subscribe(
+      (quiz) => (this.quiz = quiz),
+      (error) => this.messageService.showMessage('error', error)
+    );
+  }
+
+  chooseQuestion(questionIndex: number) {
+    this.quizPlayService.chooseQuestion(questionIndex);
+  }
+
+  submitQuiz() {
+    let isInvalid: boolean = false;
+    this.quizPlayService.quizResponse.answers.forEach((answer, index) => {
+      if (answer.selected_option_ids.length == 0) {
+        this.messageService.showMessage(
+          'error',
+          `Question ${index + 1} is not attempted yet.`
+        );
+        isInvalid = true;
+      }
+    });
+    if (!isInvalid) {
+      this.quizzesService.playQuiz(this.quizPlayService.quizResponse).subscribe(
+        (_response) => {
+          console.log(_response);
+          this.messageService.showMessage('success', 'You played well!');
+          this.router.navigate(['/quizzes', this.quiz.quiz_id]);
+        },
+        (error) => this.messageService.showMessage('error', error)
+      );
+    }
   }
 }

@@ -1,5 +1,5 @@
-<div class="d-flex flex-column" *ngIf="quiz" class="p-4" style="background-color: #60C6FF; min-height: 100vh; height: 100%;">
-    <div class="opft p-4 custom-rounded" style="min-height: 100vh; height: 100%;">
+<div class="d-flex flex-column" *ngIf="quiz" class="p-4" style="background-color: #60C6FF;height: 100%;">
+    <div class="opft p-4 custom-rounded" style="height: 100%;">
         <div class="d-flex justify-content-between align-items-center">
             <div>
                 <h1 style="font-weight: bold;">
@@ -11,10 +11,10 @@
                 <h1 class="mx-2" *ngIf="userRole == 'PLAYER'" routerLink="play" style="cursor: pointer;">
                     <i class="fa fa-play"></i>
                 </h1>
-                <h1 class="mx-2" *ngIf="userRole == 'CREATOR' && quiz.creator_id == userId" [routerLink]="['edit']" style="cursor: pointer;" disabled>
+                <h1 class="mx-2" *ngIf="userRole == 'CREATOR' && quiz.creator_id == userId" style="cursor: pointer;" routerLink="edit">
                     <i class="fa fa-pencil"></i>
                 </h1>
-                <h1 class="mx-2" *ngIf="(userRole == 'CREATOR' && quiz.creator_id == userId) || userRole == 'ADMIN'" style="cursor: pointer;" disabled>
+                <h1 class="mx-2" *ngIf="(userRole == 'CREATOR' && quiz.creator_id == userId) || userRole == 'ADMIN'" style="cursor: pointer;" (click)="removeQuiz()">
                     <i class="fa fa-trash"></i>
                 </h1>
             </div>
@@ -30,7 +30,7 @@
         <div class="my-4 opft custom-rounded p-4">
             <h2 style="color: white;">Top Records</h2>
             <div>
-                <play-record *ngFor="let record of records; let recordNum = index" [record]="record" [itemNumber]="recordNum"></play-record>
+                <play-record *ngFor="let record of records; let recordNum = index" [record]="record" [itemNumber]="recordNum + 1"></play-record>
             </div>
         </div>
     </div>

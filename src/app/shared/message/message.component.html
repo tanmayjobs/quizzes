@@ -1,3 +1,20 @@
-<div *ngIf="message" [ngClass]="{'alert': true, 'alert-primary': message.type != 'error', 'alert-danger': message.type == 'error' }" role="alert">
-    {{ message.message }}
+<div *ngIf="message" [ngClass]="{'overlay': message.type == 'confirm'}">
+    <div *ngIf="message.type != 'confirm'" [ngClass]="{'alert': true, 'alert-primary': message.type == 'success', 'alert-danger': message.type == 'error' }" role="alert">
+        {{ message.message }}
+    </div>
+
+    <div *ngIf="message.type == 'confirm'" role="alert">
+        <div class="confirm d-flex flex-column justify-content-between">
+            <span>{{ message.message }}</span>
+            <div class="d-flex justify-content-end" style="margin-top: 20px;">
+                <button class="btn btn-light mx-2 px-4" (click)="confirmDecision(false)">
+                    No
+                </button>
+                <button class="btn btn-dark mx-2 px-4" (click)="confirmDecision(true)">
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
+
 </div>

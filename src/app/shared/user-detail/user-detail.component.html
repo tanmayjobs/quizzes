@@ -1,1 +1,9 @@
-<p>user-detail works!</p>
+<div class="d-flex justify-content-between align-items-center bg-dark mx-5 my-2 p-4" style="color: white; border-radius: 20px;">
+    <div class="d-flex flex-column">
+        <h3>{{user.username}}</h3>
+        <sub style="font-size: 14px;">{{user.user_role | capitalize}}</sub>
+    </div>
+    <span (click)="removeUser()" style="cursor: pointer;">
+        <i class="fa fa-trash-o" aria-hidden="true" style="font-size: 30px;color: tomato;"></i>
+    </span>
+</div>

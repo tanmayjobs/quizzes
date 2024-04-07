@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { UserTokens } from '../../auth/user.model';
 import { CommonModule } from '@angular/common';
-import { USEROLES } from '../app.helpers';
+import { USERROLES } from '../app.helpers';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +17,7 @@ export class NavbarComponent {
   constructor(private authService: AuthService){}
   ngOnInit(){
     this.authService.currentUserRole.subscribe(
-      (user) => this.userRole = USEROLES[user.role]
+      (user) => this.userRole = USERROLES[user.role]
     );
   }
 }

@@ -1,21 +1,33 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
-html, body, app-root{
-    margin: 0px;
-    padding: 0px;
+html,
+body,
+app-root {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
-.opft{
-    background-color: rgba(255, 255, 255, 0.42);
+.opft {
+  background-color: rgba(255, 255, 255, 0.42);
 }
-.custom-rounded{
-    border-radius: 30px;
+.custom-rounded {
+  border-radius: 20px;
 }
-.tags{
-    padding: 10px 20px;
-    border-radius: 20px;
-    margin: 5px;
-    background-color: black;
-    color: white;
-    box-shadow: 3px 3px 4px black;
+.tags {
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin: 5px;
+  background-color: black;
+  color: white;
+  box-shadow: 3px 3px 4px black;
+}
+.dismiss :hover {
+  background-color: tomato;
+}
+input[type="checkbox"]{
+  border: none;
+  padding: 5px;
 }

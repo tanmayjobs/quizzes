@@ -6,11 +6,14 @@ import { QuizPlayComponent } from './quiz-play/quiz-play.component';
 import { QuizEditComponent } from './quiz-edit/quiz-edit.component';
 import { QuizListComponent } from './quiz-list/quiz-list.component';
 import { NewQuizComponent } from './new-quiz/new-quiz.component';
-import { QuestionsModule } from './questions/questions.module';
 import { QuizDetailComponent } from './quiz-detail/quiz-detail.component';
 import { QuizTileComponent } from '../shared/quiz-tile/quiz-tile.component';
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { PlayRecordComponent } from '../shared/play-record/play-record.component';
+import { FormsModule } from '@angular/forms';
+import { EditQuestionComponent } from './questions/edit-question/edit-question.component';
+import { OptionItemComponent } from './questions/option-item/option-item.component';
+import { PlayQuestionComponent } from './questions/play-question/play-question.component';
 
 
 @NgModule({
@@ -19,15 +22,18 @@ import { PlayRecordComponent } from '../shared/play-record/play-record.component
     QuizEditComponent,
     QuizListComponent,
     NewQuizComponent,
-    QuizDetailComponent
+    QuizDetailComponent,
+    EditQuestionComponent,
+    OptionItemComponent,
+    PlayQuestionComponent
   ],
   imports: [
     CommonModule,
     QuizzesRoutingModule,
-    QuestionsModule,
     QuizTileComponent,
     LoaderComponent,
-    PlayRecordComponent
+    PlayRecordComponent,
+    FormsModule
   ]
 })
 export class QuizzesModule { }

@@ -1,3 +1,39 @@
-<div>
-
-</div>
+<div class="d-flex flex-column justify-content-center align-items-center p-4" *ngIf="allTags" style="background-color: #60C6FF; min-height: 100vh; height: 100%;">
+    <form #quizForm="ngForm" (ngSubmit)="submitForm()">
+      <div class="opft p-4 custom-rounded d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 style="font-weight: bold;">
+              <input
+              type="text"
+              placeholder="Quiz Name"
+              name="quizName"
+              ngModel required pattern="^.*[a-zA-Z0-9].*$">
+            </h1>
+        </div>
+        <div *ngIf="!quizForm.valid && (quizForm.dirty || quizForm.touched)">
+            <div *ngIf="quizForm.controls.quizName.invalid" class="text-danger">Quiz name is required.</div>
+        </div>
+        <div class="d-flex flex-wrap align-items-center">
+          <span class="tags m-2 dismiss" *ngFor="let tag of modifiedTags; let i = index" (click) = "removeTag(i)" style="cursor: pointer;">
+            {{ tag.tag_name.toUpperCase() }}
+          </span>
+          <button *ngIf="!showTagSelector" type="button" class="mx-1 tags" (click)="showTagSelector = !showTagSelector">
+            +
+          </button>
+          <div *ngIf="showTagSelector">
+            <select class="tags mx-1" style="border: none;" (change)="addTag($event.target.value)">
+                <option value="" disabled selected>Select Tag</option>
+                <option *ngFor="let tag of allTags; let i = index" [value]="i">{{ tag.tag_name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="tags my-4" [disabled]="!quizForm.valid">Next</button>
+        </div>
+    </div>
+    </form>
+  </div>
+  <div class="d-flex justify-content-center align-items-center" *ngIf="!allTags" style="width:100vw;height:100vh;">
+    <loader></loader>
+  </div>
+  

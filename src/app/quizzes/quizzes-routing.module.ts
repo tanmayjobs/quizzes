@@ -4,8 +4,6 @@ import { QuizEditComponent } from './quiz-edit/quiz-edit.component';
 import { canCreateQuiz, canEditQuiz, canPlayQuiz, shouldBeLoggedIn } from '../shared/auth.guards';
 import { QuizPlayComponent } from './quiz-play/quiz-play.component';
 import { QuizListComponent } from './quiz-list/quiz-list.component';
-import { FillComponent } from '../shared/fill/fill.component';
-import { EditQuestionComponent } from './questions/edit-question/edit-question.component';
 import { QuizDetailComponent } from './quiz-detail/quiz-detail.component';
 import { NewQuizComponent } from './new-quiz/new-quiz.component';
 

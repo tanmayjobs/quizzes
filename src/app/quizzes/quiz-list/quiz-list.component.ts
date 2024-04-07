@@ -10,7 +10,7 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class QuizListComponent {
   filterBy: string;
-  quizzes = [];
+  quizzes;
   userRole: string;
 
   constructor(public quizzesService: QuizzesService, public messageService: MessageService, public authService: AuthService) { }
@@ -29,6 +29,15 @@ export class QuizListComponent {
       },
       error => {
         this.messageService.showMessage("error", error.error.message);
+      }
+    )
+    this.quizzesService.listenQuizRemoved.
+    subscribe(
+      (quiz_id) => {
+        const quizIndex = this.quizzes.findIndex(quiz => quiz.quiz_id == quiz_id);
+        if (quizIndex > -1){
+          this.quizzes.splice(quizIndex, 1);
+        }
       }
     )
   }

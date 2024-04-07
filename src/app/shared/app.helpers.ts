@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from "@angular/common/http";
+import { inject } from "@angular/core";
 import { throwError } from "rxjs";
 
 export function handleError(error: HttpErrorResponse) {
@@ -13,7 +14,7 @@ export function handleError(error: HttpErrorResponse) {
     });
 }
 
-export const USEROLES = {
+export const USERROLES = {
   0: 'ADMIN',
   1: 'CREATOR',
   2: 'PLAYER',

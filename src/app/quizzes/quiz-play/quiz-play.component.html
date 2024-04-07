@@ -1,13 +1,31 @@
-<div class="d-flex flex-column" *ngIf="quiz" class="p-4" style="background-color: #60C6FF; min-height: 100vh; height: 100%;">
-    <div class="opft p-4 custom-rounded" style="min-height: 100vh; height: 100%;">
-        <div class="d-flex justify-content-between align-items-center">
+<div class="d-flex flex-row p-4" *ngIf="quiz && questions" style="background-color: #60C6FF; height: 100%;">
+    <div class="opft p-4 custom-rounded d-flex flex-column col-sm-4 mx-1 flex-grow-1">
+        <div class="d-flex justify-content-between">
+            <h1 style="color: white;">
+                {{quiz.quiz_name}}
+            </h1>
+            <button class="tags" (click)="submitQuiz()">
+                Submit
+            </button>
+        </div>
+        <hr>
+        <div class="d-flex flex-column justify-content-between flex-grow-1">
             <div>
-                <h1 style="font-weight: bold;">
-                    {{quiz.quiz_name}}
-                </h1>
-                <h5 style="color: grey;">By {{quiz.creator_name}}</h5>
+                <div *ngIf="questions" style="font-size: 18px;">
+                    <div
+                    class="opft p-4 m-2 custom-rounded"
+                    *ngFor="let question of questions; let questionIndex = index"
+                    (click)="chooseQuestion(questionIndex)"
+                    style="cursor: pointer;">
+                        {{questionIndex + 1}}. {{question.question_text}}
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="opft p-4 custom-rounded d-flex flex-column col-sm-8 mx-1">
+        <play-question>
+        </play-question>
     </div>
 </div>
 <div class="d-flex justify-content-center align-items-center" *ngIf="!quiz" style="width:100vw;height:100vh;">

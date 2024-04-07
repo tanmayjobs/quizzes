@@ -6,7 +6,7 @@ import { MessageService } from '../../shared/message/message.service';
 import { RecordsService } from '../../shared/records.service';
 import { PlayRecordModel } from '../../shared/records.models';
 import { AuthService } from '../../auth/auth.service';
-import { USEROLES } from '../../shared/app.helpers';
+import { USERROLES } from '../../shared/app.helpers';
 
 @Component({
   selector: 'app-quiz-detail',
@@ -49,6 +49,24 @@ export class QuizDetailComponent {
         (records: {records: PlayRecordModel[]}) => this.records = records.records,
         (error) => this.messageService.showMessage('error', error.error.message)
       );
+    });
+  }
+
+  removeQuiz(){
+    console.log(this.quiz);
+    const askConfirmation = this.messageService.showConfirm(`Do you want to remove '${this.quiz.quiz_name}' Quiz?`);
+    askConfirmation.then((isConfirmed) => {
+      if (isConfirmed){
+        this.quizzesService.
+        deleteQuiz(this.quiz.quiz_id)
+        .subscribe(
+          _response => {
+            this.router.navigate(['/quizzes']);
+            this.messageService.showMessage("success", "Quiz Removed Successfully!");
+          },
+          error => this.messageService.showMessage("error", error)
+        );
+      }
     });
   }
 }

@@ -27,16 +27,17 @@ export class QuizTileComponent {
     )
   }
 
-  click(){
-    if (confirm("Are you sure you want to remove the Quiz?")){
-      this.quizzesService.deleteQuiz(this.quiz.quiz_id).subscribe(
-        response => {
-          this.messageService.showMessage("success", "Quiz Removed Successfully!");
-        },
-        error => {
-          this.messageService.showMessage("error", error.error.message);
-        }
-      )
-    }
+  removeQuiz(){
+    const askConfirmation = this.messageService.showConfirm(`Do you want to remove '${this.quiz.quiz_name}' Quiz?`);
+    askConfirmation.then((isConfirmed) => {
+      if (isConfirmed){
+        this.quizzesService.
+        deleteQuiz(this.quiz.quiz_id)
+        .subscribe(
+          _response => this.messageService.showMessage("success", "Quiz Removed Successfully!"),
+          error => this.messageService.showMessage("error", error)
+        );
+      }
+    });
   }
 }

@@ -1,3 +1,3 @@
 export class PlayRecordModel{
-    constructor(public quizId: string, public userId: string, public score:number, public username: string, public quizName:string){}
+    constructor(public quiz_id: string, public user_id: string, public score:number, public username: string, public quiz_name:string){}
 }
