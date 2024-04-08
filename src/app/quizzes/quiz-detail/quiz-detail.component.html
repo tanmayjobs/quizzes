@@ -24,13 +24,20 @@
                 {{tag.tag_name.toUpperCase()}}
             </span>
         </div>
-        <div class="my-4" style="font-size: 27px; color: white;">
-            All It Takes Is Fear, And A Little Focused Violence. One of the best quiz about the darkest city, Gotham.
-        </div>
+        <pre class="my-4" style="font-size: 27px; color: white;">
+        All It Takes Is Fear, And A Little Focused Violence.
+        One of the best quiz about the darkest city, Gotham.
+        </pre>
         <div class="my-4 opft custom-rounded p-4">
             <h2 style="color: white;">Top Records</h2>
-            <div>
+            <hr>
+            <div *ngIf="records.length">
                 <play-record *ngFor="let record of records; let recordNum = index" [record]="record" [itemNumber]="recordNum + 1"></play-record>
+            </div>
+            <div *ngIf="!records.length">
+                <h3 style="color: white;">
+                    Why don't you be the first to play this quiz?
+                </h3>
             </div>
         </div>
     </div>

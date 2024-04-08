@@ -44,7 +44,7 @@ export class QuizDetailComponent {
           this.router.navigate(['/quizzes'])
         }
       );
-      this.recordService.getRecords(null, params.quiz_id)
+      this.recordService.getRecords(null, params['quizId'])
       .subscribe(
         (records: {records: PlayRecordModel[]}) => this.records = records.records,
         (error) => this.messageService.showMessage('error', error.error.message)

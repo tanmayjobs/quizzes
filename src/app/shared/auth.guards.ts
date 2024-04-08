@@ -99,7 +99,7 @@ export const fetchUserRole: CanActivateFn = (
           authService.currentUserRole.next(userRoleData);
           resolve(true);
         },
-        (error) => {
+        (_error) => {
           authService.logout();
           messageService.showMessage('error', 'Please, login again for security reasons!');
           reject(false);
